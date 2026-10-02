@@ -1,0 +1,62 @@
+{
+  "entities": {
+    "PantryItem": {
+      "title": "PantryItem",
+      "description": "วัตถุดิบในตู้เย็นของผู้ใช้",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 200 },
+        "qty": { "type": "number" },
+        "unit": { "type": "string", "maxLength": 50 },
+        "category": { "type": "string", "enum": ["ของสด", "ผัก", "เครื่องปรุง", "อื่นๆ"] },
+        "expiry": { "type": "string", "maxLength": 50 },
+        "userId": { "type": "string", "maxLength": 128 }
+      },
+      "required": ["name", "qty", "unit", "category", "userId"]
+    },
+    "Recipe": {
+      "title": "Recipe",
+      "description": "สูตรอาหารของผู้ใช้",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 200 },
+        "ingredients": { "type": "array" },
+        "steps": { "type": "array" },
+        "userId": { "type": "string", "maxLength": 128 }
+      },
+      "required": ["name", "ingredients", "steps", "userId"]
+    },
+    "ShoppingItem": {
+      "title": "ShoppingItem",
+      "description": "รายการซื้อของของผู้ใช้",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 200 },
+        "qty": { "type": "number" },
+        "unit": { "type": "string", "maxLength": 50 },
+        "category": { "type": "string", "enum": ["ของสด", "ผัก", "เครื่องปรุง", "อื่นๆ"] },
+        "checked": { "type": "boolean" },
+        "source": { "type": "string", "maxLength": 50 },
+        "userId": { "type": "string", "maxLength": 128 }
+      },
+      "required": ["name", "qty", "unit", "category", "checked", "userId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/pantry/{itemId}": {
+      "schema": "PantryItem",
+      "description": "รายการวัตถุดิบในตู้เย็นของแต่ละผู้ใช้"
+    },
+    "/users/{userId}/recipes/{recipeId}": {
+      "schema": "Recipe",
+      "description": "รายการสูตรอาหารของแต่ละผู้ใช้"
+    },
+    "/users/{userId}/shopping/{shoppingId}": {
+      "schema": "ShoppingItem",
+      "description": "รายการซื้อของของแต่ละผู้ใช้"
+    }
+  }
+}

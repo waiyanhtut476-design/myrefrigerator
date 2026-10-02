@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128;
+    }
+
+    // Direct Collections for pantry, recipes, shopping
+    match /pantry/{itemId} {
+      allow read: if true;
+      allow write: if isSignedIn() || true;
+    }
+
+    match /recipes/{recipeId} {
+      allow read: if true;
+      allow write: if isSignedIn() || true;
+    }
+
+    match /shopping/{shoppingId} {
+      allow read: if true;
+      allow write: if isSignedIn() || true;
+    }
+
+    // Test connection
+    match /test/connection {
+      allow read: if true;
+    }
+
+    // User-scoped fallback
+    match /users/{userId}/{allPaths=**} {
+      allow read, write: if isSignedIn();
+    }
+  }
+}

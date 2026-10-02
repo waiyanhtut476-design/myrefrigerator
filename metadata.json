@@ -1,0 +1,6 @@
+{
+  "name": "ตู้เย็นของฉัน (My Smart Fridge)",
+  "description": "เว็บแอปจัดการวัตถุดิบในตู้เย็น วันหมดอายุ คลังสูตรอาหาร และรายการซื้อของอัตโนมัติ",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
